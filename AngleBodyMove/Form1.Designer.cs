@@ -62,16 +62,21 @@ namespace AngleBodyMove
             // angle_value
             // 
             this.angle_value.Location = new System.Drawing.Point(29, 29);
+            this.angle_value.MaxLength = 3;
             this.angle_value.Name = "angle_value";
             this.angle_value.Size = new System.Drawing.Size(89, 20);
             this.angle_value.TabIndex = 1;
+            this.angle_value.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.angle_value_KeyPress);
             // 
             // V_0_value
             // 
             this.V_0_value.Location = new System.Drawing.Point(26, 75);
+            this.V_0_value.MaxLength = 9;
             this.V_0_value.Name = "V_0_value";
             this.V_0_value.Size = new System.Drawing.Size(89, 20);
             this.V_0_value.TabIndex = 2;
+            this.V_0_value.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.V_0_value_KeyPress);
+
             // 
             // angle_label
             // 

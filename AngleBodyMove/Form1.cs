@@ -21,28 +21,30 @@ namespace AngleBodyMove
         public Form1()
         {
             InitializeComponent();
-            this.Paint += new PaintEventHandler(Form1_Paint);
         }
 
         private void start_button_Click(object sender, EventArgs e)
         {
+                L_value.Text = "";
+                Hmax_value.Text = "";
+                t_value.Text = ""; 
             try
             {
                 a = Convert.ToDouble(angle_value.Text) * (3.141592 / 180);
                 V_0 = Convert.ToDouble(V_0_value.Text);
             }
             catch (Exception) {
-                L_value.Text = "";
-                Hmax_value.Text = "";
-                t_value.Text = "";
+
                 MessageBox.Show("Проверьте введённые данные", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             Invalidate();
+            this.Paint += new PaintEventHandler(Form1_Paint);
             timer1.Start();
             timer1.Enabled = true;
             timer1.Tick += new EventHandler(timer1_Tick);
             timer1.Interval = 50;
         }
+
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
@@ -54,6 +56,36 @@ namespace AngleBodyMove
         private void Form1_Load(object sender, EventArgs e)
         {
             timer1.Start();
+        }
+
+        private void angle_value_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+            (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+        private void V_0_value_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+            (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
