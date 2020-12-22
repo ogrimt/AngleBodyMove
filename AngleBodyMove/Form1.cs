@@ -21,13 +21,15 @@ namespace AngleBodyMove
         public Form1()
         {
             InitializeComponent();
+            this.Paint += new PaintEventHandler(Form1_Paint);
         }
 
         private void start_button_Click(object sender, EventArgs e)
         {
-                L_value.Text = "";
-                Hmax_value.Text = "";
-                t_value.Text = ""; 
+            double x = 0, y = 0;
+            L_value.Text = "";
+            Hmax_value.Text = "";
+            t_value.Text = ""; 
             try
             {
                 a = Convert.ToDouble(angle_value.Text) * (3.141592 / 180);
@@ -37,14 +39,11 @@ namespace AngleBodyMove
 
                 MessageBox.Show("Проверьте введённые данные", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            Invalidate();
-            this.Paint += new PaintEventHandler(Form1_Paint);
             timer1.Start();
             timer1.Enabled = true;
             timer1.Tick += new EventHandler(timer1_Tick);
             timer1.Interval = 50;
         }
-
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
