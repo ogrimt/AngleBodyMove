@@ -32,6 +32,9 @@ namespace AngleBodyMove
                 V_0 = Convert.ToDouble(V_0_value.Text);
             }
             catch (Exception) {
+                L_value.Text = "";
+                Hmax_value.Text = "";
+                t_value.Text = "";
                 MessageBox.Show("Проверьте введённые данные", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             Invalidate();
