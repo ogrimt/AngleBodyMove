@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +12,8 @@ namespace AngleBodyMove
 {
     public partial class Form1 : Form
     {
-        double x = 0, y = 0;
-        double y_round;
+        double _x = 0, y = 0;
+        double _yRound;
         double t;//время
         double a;//угол
         double V_0;//скорость
@@ -26,7 +26,7 @@ namespace AngleBodyMove
 
         private void start_button_Click(object sender, EventArgs e)
         {
-            double x = 0, y = 0;
+         
             L_value.Text = "";
             Hmax_value.Text = "";
             t_value.Text = ""; 
@@ -34,22 +34,23 @@ namespace AngleBodyMove
             {
                 a = Convert.ToDouble(angle_value.Text) * (3.141592 / 180);
                 V_0 = Convert.ToDouble(V_0_value.Text);
+                timer1.Start();
+            timer1.Enabled = true;
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Interval = 50;
             }
             catch (Exception) {
 
                 MessageBox.Show("Проверьте введённые данные", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            timer1.Start();
-            timer1.Enabled = true;
-            timer1.Tick += new EventHandler(timer1_Tick);
-            timer1.Interval = 50;
+           
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.FillRectangle(Brushes.Red, 
                 new Rectangle(
-                    (int)(50 * x), (int)(400 - 50 * y), 5, 5));
+                    (int)(50 * _x), (int)(400 - 50 * y), 5, 5));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -90,11 +91,11 @@ namespace AngleBodyMove
         private void timer1_Tick(object sender, EventArgs e)
         {
             t += 0.01;
-            x = (V_0 * Math.Cos(a)) * t;
+            _x = (V_0 * Math.Cos(a)) * t;
             y = (V_0 * Math.Sin(a)) * t - g * t * t / 2;
-            y_round = Math.Round(y, 0);
+            _yRound = Math.Round(y, 0);
             Invalidate();
-            if(y != 0 && y < 0 && y_round == 0)
+            if(y != 0 && y < 0 && _yRound == 0)
             {
                 if(angle_value.Text != "" && V_0_value.Text != "") { 
                     L_value.Text = Convert.ToString(Math.Round((V_0 * Math.Cos(a)) * (2 * (V_0 * Math.Sin(a) / (g))), 2));
@@ -102,6 +103,9 @@ namespace AngleBodyMove
                     t_value.Text = Convert.ToString(Math.Round(2*(V_0 * Math.Sin(a)/(g)), 2));
                 }
                 timer1.Stop();
+
+                Graphics gr;
+                Bitmap bm;
             }
         }
     }
